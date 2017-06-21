@@ -1,25 +1,26 @@
-require "sinatra/base"
-require "bundler/setup"
+require 'sinatra/base'
+require 'bundler/setup'
+require 'sprockets'
 
 class Wozane < Sinatra::Base
-  get "/" do
+
+  get '/' do
     "Welcome to wozane's world"
     erb :index
   end
 
-  get "/shop" do
-    "shop view"
+  get '/coding' do
+    'coding view'
+    erb :coding
   end
 
-  get "/gallery" do
-    "gallery view"
+  get '/yarn' do
+    'yarn view'
+    erb :yarn
   end
 
-  get "/blog" do
-    "blog view"
+  get '/login' do
+    erb :login
   end
 
-  get "/wozpin" do
-    "wozane pintrest"
-  end
 end
