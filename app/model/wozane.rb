@@ -9,17 +9,23 @@ class Wozane < Sinatra::Base
     erb :index
   end
 
-  get '/coding' do
-    'coding view'
-    erb :coding
+  get '/gallery' do
+    erb :gallery
   end
 
-  get '/yarn' do
-    'yarn view'
-    erb :yarn
+  get '/blog' do
+    erb :blog
   end
 
-  get '/login' do
-    erb :login
+  get '/board' do
+    erb :board
+  end
+
+  get '/shop' do
+    erb :shop
+  end
+
+  get '/logon' do
+    erb :logon
   end
 end
