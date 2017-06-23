@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>wozane</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Wozane">
+    <meta name="keywords" content="HTML">
+    <meta name="author" content="Aneta Woźniak">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/main.css">
+  </head>
+
+  <body style=" width: 100%; margin: auto; text-align: center; padding-top: 2rem;">
+    <header style=" display: flex; justify-content: flex-end; padding-bottom: 2rem; padding-right: 1rem;">
+      <nav>
+        <a href="/">home</a>
+        <a href="gallery">gallery</a>
+        <a href="blog">blog</a>
+        <a href="board">board</a>
+        <a href="shop">shop</a>
+        <a href="login">admin login</a>
+      </nav>
+    </header>
+
+    <section style="margin-bottom: 2rem;">
+      <%= yield %>
+    </section>
+
+    <footer>
+      <p>Posted and created by: Aneta Woźniak</p>
+    </footer>
+  </body>
+</html>

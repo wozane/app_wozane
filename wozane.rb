@@ -4,6 +4,7 @@ require 'sprockets'
 
 class Wozane < Sinatra::Base
   set :views, File.expand_path('../app/views', __FILE__)
+  set :show_exceptions, :after_handler
 
   get '/' do
     erb :index
@@ -27,5 +28,13 @@ class Wozane < Sinatra::Base
 
   get '/logon' do
     erb :logon
+  end
+
+  get '/index' do
+    redirect to('/')
+  end
+
+  error 404 do
+    'Boom'
   end
 end
