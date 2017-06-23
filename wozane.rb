@@ -3,9 +3,9 @@ require 'bundler/setup'
 require 'sprockets'
 
 class Wozane < Sinatra::Base
+  set :views, File.expand_path('../app/views', __FILE__)
 
   get '/' do
-    "Welcome to wozane's world"
     erb :index
   end
 
