@@ -4,6 +4,7 @@ require 'bundler/setup'
 class Wozane < Sinatra::Base
   set :views, File.expand_path('../app/views', __FILE__)
   set :raise_errors, true
+  set :show_exceptions, :after_handler
 
   enable :sessions
 
@@ -35,8 +36,10 @@ class Wozane < Sinatra::Base
     redirect to('/')
   end
 
-  error 404 do
-    'Access forbidden'
+  # 404 error
+  not_found do
+    status 404
+    erb :error
   end
 
   get '/secret' do
