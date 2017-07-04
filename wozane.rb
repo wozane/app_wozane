@@ -29,7 +29,7 @@ class Wozane < Sinatra::Base
   end
 
   get '/login' do
-    redirect to('/')
+    erb :login
   end
 
   get '/index' do
