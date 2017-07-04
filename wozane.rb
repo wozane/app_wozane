@@ -1,10 +1,11 @@
 require 'sinatra/base'
 require 'bundler/setup'
-require 'sprockets'
 
 class Wozane < Sinatra::Base
   set :views, File.expand_path('../app/views', __FILE__)
-  set :show_exceptions, :after_handler
+  set :raise_errors, true
+
+  enable :sessions
 
   get '/' do
     erb :index
@@ -26,8 +27,8 @@ class Wozane < Sinatra::Base
     erb :shop
   end
 
-  get '/logon' do
-    erb :logon
+  get '/login' do
+    redirect to('/')
   end
 
   get '/index' do
@@ -35,6 +36,10 @@ class Wozane < Sinatra::Base
   end
 
   error 404 do
-    'Boom'
+    'Access forbidden'
+  end
+
+  get '/secret' do
+    halt 401, 'go away!'
   end
 end
