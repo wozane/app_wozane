@@ -13,11 +13,15 @@
     <header style=" display: flex; justify-content: flex-end; padding-bottom: 2rem; padding-right: 1rem;">
       <nav>
         <a href="/">home</a>
-        <a href="gallery">gallery</a>
-        <a href="blog">blog</a>
-        <a href="board">board</a>
-        <a href="shop">shop</a>
-        <a href="login">admin login</a>
+        <a href="/gallery">gallery</a>
+        <a href="/blog">blog</a>
+        <a href="/board">board</a>
+        <a href="/shop">shop</a>
+        <% if session[:admin] == true %>
+          <a href="/logout">logout</a>
+        <% else %>
+          <a href="/login">admin</a>
+        <% end %>
       </nav>
     </header>
 
