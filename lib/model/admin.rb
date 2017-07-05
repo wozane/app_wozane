@@ -1,4 +1,4 @@
-class Admin
+class Authenticator
   NAME = 'foo'
   PASSWORD = 'bar'
 
@@ -9,7 +9,7 @@ class Admin
     @password = password
   end
 
-  def authenticate?
+  def authenticate
     NAME == name && PASSWORD == password
   end
 end

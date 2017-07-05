@@ -35,9 +35,9 @@ class Wozane < Sinatra::Base
   end
 
   post '/login' do
-    admin = Admin.new(params["username"], params["password"])
+    admin = Authenticator.new(params["username"], params["password"])
 
-    if admin.authenticate?
+    if admin.authenticate
       session[:admin] = true
       redirect to('/admin')
     else
@@ -46,6 +46,7 @@ class Wozane < Sinatra::Base
   end
 
   get '/admin' do
+    session[:admin] = true
     erb :admin
   end
 
