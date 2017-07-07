@@ -1,7 +1,22 @@
 require 'sinatra/base'
 require 'bundler/setup'
+require 'bcrypt'
 
 Dir["./lib/**/*.rb"].each{|file| require file}
+
+def hash_password(password)
+  BCrypt::Password.create(password).to_s
+end
+
+def test_password(password, hash)
+  BCrypt::Password.new(hash) == password
+end
+
+User = Struct.new(:id, :username, :password_hash)
+USERS = [
+  User.new(1, 'bob', hash_password('poo')),
+  User.new(2, 'sally', hash_password('go round the sun')),
+]
 
 class Wozane < Sinatra::Base
   set :views, File.expand_path('../views', __FILE__)
@@ -30,33 +45,43 @@ class Wozane < Sinatra::Base
     erb :shop
   end
 
-  get '/login/?' do
+  get '/login' do
     erb :login, locals: { title: 'Sign in'}
   end
 
   post '/login' do
-    admin = Authenticator.new(params["username"], params["password"])
-
-    if admin.authenticate
-      session[:admin] = true
-      redirect to('/admin')
+    user = USERS.find { |u| u.username == params[:username] }
+    if user && test_password(params[:password], user.password_hash)
+      session.clear
+      session[:user_id] = user.id
+      redirect '/admin'
     else
-      redirect to('/login')
+      erb :index
     end
   end
 
-  get '/admin' do
-    session[:admin] = true
-    erb :admin
+  post '/create_user' do
+    USERS << User.new(
+      USERS.size + 1, #id
+      params[:username], #username
+      hash_password(params[:password]) #password_hash
+    )
+    redirect '/'
   end
 
-  get '/logout' do
-    session[:admin] = false
-    redirect to('/')
+  post '/logout' do
+    session.clear
+    redirect '/'
   end
 
-  get '/index' do
-    redirect to('/')
+  helpers do
+    def current_user
+      if session[:user_id]
+         USERS.find { |u| u.id == session[:user_id] }
+      else
+        nil
+      end
+    end
   end
 
   # error
