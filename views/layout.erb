@@ -17,7 +17,7 @@
         <a href="/blog">blog</a>
         <a href="/board">board</a>
         <a href="/shop">shop</a>
-        <% if session[:user_id] == true %>
+        <% if session[:admin] == true %>
           <a href="/logout">logout</a>
         <% else %>
           <a href="/login">admin</a>
