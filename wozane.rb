@@ -1,8 +1,9 @@
 require 'sinatra/base'
+require 'sinatra/flash'
 require 'bundler/setup'
 require 'bcrypt'
 
-Dir['./lib/**/*.rb'].each{ |file| require file }
+Dir['./lib/**/*.rb'].each { |file| require file }
 
 class Wozane < Sinatra::Base
   set :views, File.expand_path('../views', __FILE__)
@@ -10,8 +11,10 @@ class Wozane < Sinatra::Base
   set :show_exceptions, :after_handler
 
   enable :sessions
+  register Sinatra::Flash
 
   get '/' do
+    flash[:notice] = 'Hooray, Flash is working!'
     erb :index
   end
 
@@ -40,6 +43,7 @@ class Wozane < Sinatra::Base
       session[:admin] = true
       redirect to('/admin')
     else
+      flash[:alert] = 'Try again!'
       redirect to('/login')
     end
   end

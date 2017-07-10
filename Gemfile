@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 gem 'bcrypt'
 gem 'sinatra'
+gem 'sinatra-flash'
 
 group :test do
   gem 'minitest'
