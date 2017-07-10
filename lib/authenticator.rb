@@ -1,6 +1,8 @@
+require 'bcrypt'
+
 class Authenticator
   NAME = 'foo'
-  PASSWORD = 'bar'
+  PASSWORD = BCrypt::Password.create('bar')
 
   def self.authenticate?(name, password)
     NAME == name && PASSWORD == password
