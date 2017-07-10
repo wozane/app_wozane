@@ -2,7 +2,7 @@ require 'sinatra/base'
 require 'bundler/setup'
 require 'bcrypt'
 
-Dir["./lib/**/*.rb"].each{|file| require file}
+Dir['./lib/**/*.rb'].each{ |file| require file }
 
 class Wozane < Sinatra::Base
   set :views, File.expand_path('../views', __FILE__)
@@ -32,11 +32,11 @@ class Wozane < Sinatra::Base
   end
 
   get '/login' do
-    erb :login, locals: { title: 'Sign in'}
+    erb :login, locals: { title: 'Sign in' }
   end
 
   post '/login' do
-    if Authenticator.authenticate?(params["username"], params["password"])
+    if Authenticator.authenticate?(params['username'], params['password'])
       session[:admin] = true
       redirect to('/admin')
     else
