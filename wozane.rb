@@ -14,10 +14,10 @@ class Wozane < Sinatra::Base
   register Sinatra::Flash
 
   def authenticate!
-    unless session[:admin]
-      flash[:notice] = 'You need to login'
-      redirect to('/login')
-    end
+    return if session[:admin]
+
+    flash[:notice] = 'You need to login'
+    redirect to('/login')
   end
 
   get '/' do
