@@ -13,6 +13,13 @@ class Wozane < Sinatra::Base
   enable :sessions
   register Sinatra::Flash
 
+  def authenticate!
+    unless session[:admin]
+      flash[:notice] = 'You need to login'
+      redirect to('/login')
+    end
+  end
+
   get '/' do
     flash[:notice] = 'Hooray, Flash is working!'
     erb :index
@@ -35,7 +42,7 @@ class Wozane < Sinatra::Base
   end
 
   get '/login' do
-    erb :login, locals: { title: 'Sign in' }
+    erb :login
   end
 
   post '/login' do
@@ -49,6 +56,7 @@ class Wozane < Sinatra::Base
   end
 
   get '/admin' do
+    authenticate!
     erb :admin
   end
 
